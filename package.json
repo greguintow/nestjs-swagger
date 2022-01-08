@@ -1,10 +1,10 @@
 {
-  "name": "@nestjs/swagger",
-  "version": "5.1.5",
+  "name": "@greguintow/nestjs-swagger",
+  "version": "5.1.6",
   "description": "Nest - modern, fast, powerful node.js web framework (@swagger)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
-  "repository": "https://github.com/nestjs/swagger",
+  "repository": "https://github.com/greguintow/nestjs-swagger",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "format": "prettier \"lib/**/*.ts\" --write",
@@ -57,6 +57,7 @@
   "peerDependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
+    "class-transformer": "^0.4.0",
     "fastify-swagger": "*",
     "reflect-metadata": "^0.1.12",
     "swagger-ui-express": "*"

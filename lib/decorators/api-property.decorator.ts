@@ -1,3 +1,4 @@
+import { Expose, ExposeOptions } from 'class-transformer';
 import { DECORATORS } from '../constants';
 import { SchemaObjectMetadata } from '../interfaces/schema-object-metadata.interface';
 import { getEnumType, getEnumValues } from '../utils/enum.utils';
@@ -8,6 +9,11 @@ export interface ApiPropertyOptions
   name?: string;
   enum?: any[] | Record<string, any>;
   enumName?: string;
+    /**
+   * Use class transformer to expose the field
+   * @default true
+   */
+  expose?: boolean | ExposeOptions;
 }
 
 const isEnumArray = (obj: ApiPropertyOptions): boolean =>
@@ -56,11 +62,20 @@ export function createApiPropertyDecorator(
     };
   }
 
-  return createPropertyDecorator(
-    DECORATORS.API_MODEL_PROPERTIES,
-    options,
-    overrideExisting
-  );
+  return (target: object, propertyKey: string) => {
+    createPropertyDecorator(
+      DECORATORS.API_MODEL_PROPERTIES,
+      options,
+      overrideExisting
+    )(target, propertyKey);
+
+    if (options.expose !== false) {
+      Expose(typeof options.expose !== 'object' ? undefined : options.expose)(
+        target,
+        propertyKey,
+      );
+    }
+  }
 }
 
 export function ApiPropertyOptional(
